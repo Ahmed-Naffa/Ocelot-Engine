@@ -49,7 +49,7 @@ void Init_Render() {
     Load_Texture(&Hero.playertext, Hero.playertext.text, "resources/Textures/Player.png", (Vector2) { 100, 200 }, Hero.playertext.rect, WHITE);
     Hero.playertext.text.width *= 4;
     Hero.playertext.text.height *= 4;
-    Hero.playertext.rect = (Rectangle){ 0, 0, Hero.playertext.text.width / 6, (float)Hero.playertext.text.height };
+    Hero.playertext.rect = (Rectangle){ 0, 0, (float)Hero.playertext.text.width / 6, (float)Hero.playertext.text.height };
     SetTextureFilter(Hero.playertext.text, TEXTURE_FILTER_POINT);
 
     Load_Texture(&Man.enemytext, Man.enemytext.text, "resources/Textures/Enemy.png", (Vector2) { 500, 200 }, Man.enemytext.rect, WHITE);
@@ -57,7 +57,6 @@ void Init_Render() {
     Man.enemytext.text.height *= 4;
     Man.enemytext.rect = (Rectangle){ 0, 0, Man.enemytext.text.width / 6, (float)Man.enemytext.text.height };
     SetTextureFilter(Man.enemytext.text, TEXTURE_FILTER_POINT);
-    
 
     Load_Fonts(&fontTTF, "resources/Fonts/propaganda.ttf", "Using Ocelot-Engine\nGame Engine By Ahmed Naffa", (Vector2) { 50, 20 }, 62, 2, GOLD);
 
@@ -69,15 +68,36 @@ void Init_Render() {
     camera.speed = 10;
 }
 
-void Draw() {
-
+void Draw(void) {
     BeginDrawing();
     ClearBackground(space_Color);
 
     BeginMode2D(camera.cam);
     DrawTextureRec(art_Clouds.text, art_Clouds.rect, art_Clouds.pos, art_Clouds.color);
-    DrawTextureRec(Hero.playertext.text, Hero.playertext.rect, Hero.playertext.pos, Hero.playertext.color);
-    DrawTextureRec(Man.enemytext.text, Man.enemytext.rect, Man.enemytext.pos, Man.enemytext.color);
+
+    if (Hero.is_Active) {
+        DrawTextureRec(Hero.playertext.text, Hero.playertext.rect, Hero.playertext.pos, Hero.playertext.color);
+
+        Rectangle heroBounds = {
+            Hero.playertext.pos.x,
+            Hero.playertext.pos.y,
+            Hero.playertext.rect.width,
+            Hero.playertext.rect.height
+        };
+        DrawRectangleLinesEx(heroBounds, 2, BLACK);
+    }
+
+    if (Man.is_Active) {
+        DrawTextureRec(Man.enemytext.text, Man.enemytext.rect, Man.enemytext.pos, Man.enemytext.color);
+
+        Rectangle manBounds = {
+            Man.enemytext.pos.x,
+            Man.enemytext.pos.y,
+            Man.enemytext.rect.width,
+            Man.enemytext.rect.height
+        };
+        DrawRectangleLinesEx(manBounds, 2, BLACK);
+    }
 
     DrawTextEx(fontTTF.font, fontTTF.msg, fontTTF.pos, fontTTF.size, fontTTF.spacing, fontTTF.tint);
     DrawRectangle(0, 0, 90, 25, BLACK);

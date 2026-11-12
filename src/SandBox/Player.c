@@ -14,10 +14,12 @@ void Init_Player() {
 
 void Move_Player() {
 
+	Hero.playertext.rect = (Rectangle){ 0, 0, Hero.playertext.text.width / 6, (float)Hero.playertext.text.height };
+
+
 	if (IsKeyDown(KEY_A)) {
 		Hero.playertext.pos.x -= Hero.player_Speed * delta;
 	}
-
 	if (IsKeyDown(KEY_D)) {
 		Hero.playertext.pos.x += Hero.player_Speed * delta;
 	}
@@ -28,6 +30,7 @@ void Move_Player() {
 	if (IsKeyDown(KEY_S)) {
 		Hero.playertext.pos.y += Hero.player_Speed * delta;
 	}
+
 	if (IsKeyDown(KEY_EIGHT) && Hero.is_Active) {
 		Hero.is_Active = false;
 		Unload_Player();
@@ -35,7 +38,7 @@ void Move_Player() {
 	if (CheckCollisionRecs(Hero.playertext.rect, Man.enemytext.rect)) {
 
 		Hero.is_Active = false;
-		TraceLog(LOG_TRACE, "Kill");
+		TraceLog(LOG_INFO, "Kill");
 	}
 }
 
@@ -52,6 +55,9 @@ void Player_Animate()
 		if (currentFrame >= 6) currentFrame = 0;
 
 		Hero.playertext.rect.x = currentFrame * Hero.playertext.rect.width;
+	}
+	if (!Hero.is_Active) {
+		//Unload_Player();
 	}
 
 }
