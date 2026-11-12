@@ -32,6 +32,11 @@ void Move_Player() {
 		Hero.is_Active = false;
 		Unload_Player();
 	}
+	if (CheckCollisionRecs(Hero.playertext.rect, Man.enemytext.rect)) {
+
+		Hero.is_Active = false;
+		TraceLog(LOG_TRACE, "Kill");
+	}
 }
 
 void Player_Animate()

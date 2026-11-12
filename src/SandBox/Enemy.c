@@ -36,8 +36,6 @@ void Enemy_Animate()
 
 		Man.enemytext.rect.x = currentFrameE * Man.enemytext.rect.width;
 	}
-
-
 }
 
 void Unload_Enemy() {
