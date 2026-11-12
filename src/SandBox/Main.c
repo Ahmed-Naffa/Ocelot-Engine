@@ -1,4 +1,3 @@
-// **********************************************
 // Ocelot Game Engine is a small project made in c with raylib by Ahmed Naffa.
 // the idea is just to learn how to make engines.
 // **********************************************
