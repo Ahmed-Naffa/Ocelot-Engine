@@ -54,16 +54,17 @@ typedef struct {
 
 	my_Texture playertext;
     float player_Speed;
-	bool is_Active;
-
+	float player_Acceleration;
+	float player_Deceleration;
+	float player_Max_Speed;
+	float player_Min_Speed;
+	float player_Walk_Speed;
 } my_Player;
 
 typedef struct {
 
 	my_Texture enemytext;
     float enemy_Speed;
-	bool is_Active;
-
 } my_Enemy;
 
 extern my_Player Hero;
@@ -99,3 +100,6 @@ extern int framesCounterE;
 extern int framesSpeedE;
 
 extern float delta;
+
+extern Rectangle HBounds;
+extern Rectangle EBounds;

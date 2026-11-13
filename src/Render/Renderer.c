@@ -7,10 +7,13 @@ my_Texture art_Clouds;
 my_Texture playertext;
 my_Font fontTTF;
 my_Camera camera;
+Rectangle HBounds;
+Rectangle EBounds;
+
 
 void Load_Fonts(my_Font* struc, const char* path, const char* msg, Vector2 pos, float size, float spacing, Color tint) {
 
-    struc->font = LoadFontEx(path, size, NULL, 0);
+    struc->font = LoadFontEx(path, (float)size, NULL, 0);
     struc->path = path;
     struc->msg = msg;
     struc->size = size;
@@ -42,20 +45,19 @@ void Init_Color_Values() {
 
 void Init_Render() {
 
-
     Load_Texture(&art_Clouds, art_Clouds.text, "resources/Textures/Clouds.png", (Vector2)VZERO, (Rectangle) { 0, 0, 1920, 1080 }, WHITE);
     SetTextureFilter(art_Clouds.text, TEXTURE_FILTER_POINT);
 
-    Load_Texture(&Hero.playertext, Hero.playertext.text, "resources/Textures/Player.png", (Vector2) { 100, 200 }, Hero.playertext.rect, WHITE);
+    Load_Texture(&Hero.playertext, Hero.playertext.text, "resources/Textures/Player.png", (Vector2) { 100, 200 }, (Rectangle) { 0, 0, 128, 128 }, WHITE);
     Hero.playertext.text.width *= 4;
     Hero.playertext.text.height *= 4;
-    Hero.playertext.rect = (Rectangle){ 0, 0, (float)Hero.playertext.text.width / 6, (float)Hero.playertext.text.height };
+    HBounds = (Rectangle){Hero.playertext.pos.x, Hero.playertext.pos.y, Hero.playertext.text.width/6, Hero.playertext.text.height};
     SetTextureFilter(Hero.playertext.text, TEXTURE_FILTER_POINT);
-
-    Load_Texture(&Man.enemytext, Man.enemytext.text, "resources/Textures/Enemy.png", (Vector2) { 500, 200 }, Man.enemytext.rect, WHITE);
+    
+    Load_Texture(&Man.enemytext, Man.enemytext.text, "resources/Textures/Enemy.png", (Vector2) { 500, 500 }, (Rectangle) { 0, 0, 128, 128 }, WHITE);
     Man.enemytext.text.width *= 4;
     Man.enemytext.text.height *= 4;
-    Man.enemytext.rect = (Rectangle){ 0, 0, Man.enemytext.text.width / 6, (float)Man.enemytext.text.height };
+    EBounds = (Rectangle){Man.enemytext.pos.x, Man.enemytext.pos.y, Man.enemytext.text.width/6, Man.enemytext.text.height};
     SetTextureFilter(Man.enemytext.text, TEXTURE_FILTER_POINT);
 
     Load_Fonts(&fontTTF, "resources/Fonts/propaganda.ttf", "Using Ocelot-Engine\nGame Engine By Ahmed Naffa", (Vector2) { 50, 20 }, 62, 2, GOLD);
@@ -68,36 +70,20 @@ void Init_Render() {
     camera.speed = 10;
 }
 
-void Draw(void) {
+void Draw() {
     BeginDrawing();
     ClearBackground(space_Color);
 
     BeginMode2D(camera.cam);
     DrawTextureRec(art_Clouds.text, art_Clouds.rect, art_Clouds.pos, art_Clouds.color);
 
-    if (Hero.is_Active) {
-        DrawTextureRec(Hero.playertext.text, Hero.playertext.rect, Hero.playertext.pos, Hero.playertext.color);
+    DrawTextureRec(Hero.playertext.text, Hero.playertext.rect, Hero.playertext.pos, Hero.playertext.color);
+     HBounds = (Rectangle){Hero.playertext.pos.x,Hero.playertext.pos.y,Hero.playertext.rect.width - 22,Hero.playertext.rect.height}; //DEBUG TO SHOW Player COLLISON BOUNDS
+    DrawRectangleLinesEx(HBounds, 2, BLACK);//DEBUG TO SHOW Player COLLISON BOUNDS
 
-        Rectangle heroBounds = {
-            Hero.playertext.pos.x,
-            Hero.playertext.pos.y,
-            Hero.playertext.rect.width,
-            Hero.playertext.rect.height
-        };
-        DrawRectangleLinesEx(heroBounds, 2, BLACK);
-    }
-
-    if (Man.is_Active) {
-        DrawTextureRec(Man.enemytext.text, Man.enemytext.rect, Man.enemytext.pos, Man.enemytext.color);
-
-        Rectangle manBounds = {
-            Man.enemytext.pos.x,
-            Man.enemytext.pos.y,
-            Man.enemytext.rect.width,
-            Man.enemytext.rect.height
-        };
-        DrawRectangleLinesEx(manBounds, 2, BLACK);
-    }
+    DrawTextureRec(Man.enemytext.text, Man.enemytext.rect, Man.enemytext.pos, Man.enemytext.color);
+     EBounds = (Rectangle){Man.enemytext.pos.x,Man.enemytext.pos.y,Man.enemytext.rect.width -22,Man.enemytext.rect.height};//DEBUG TO SHOW Enemy COLLISON BOUNDS
+    DrawRectangleLinesEx(EBounds, 2, BLACK);//DEBUG TO SHOW Enemy COLLISON BOUNDS
 
     DrawTextEx(fontTTF.font, fontTTF.msg, fontTTF.pos, fontTTF.size, fontTTF.spacing, fontTTF.tint);
     DrawRectangle(0, 0, 90, 25, BLACK);

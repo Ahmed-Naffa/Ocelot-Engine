@@ -9,15 +9,11 @@ my_Enemy Man;
 
 void Init_Enemy() {
 	Man.enemy_Speed = 500;
-	Man.is_Active = true;
 }
 
 void Move_Enemy() {
 
-
-
-	if (IsKeyDown(KEY_NINE) && Man.is_Active) {
-		Man.is_Active = false;
+	if (IsKeyPressed(KEY_NINE)) {
 		Unload_Enemy();
 	}
 }
@@ -40,5 +36,5 @@ void Enemy_Animate()
 
 void Unload_Enemy() {
 
-	Man = (my_Enemy){ 0 };
+	Man = (my_Enemy){0};
 }
