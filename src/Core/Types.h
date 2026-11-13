@@ -85,15 +85,20 @@ extern my_Font fontTTF;
 
 extern my_Camera camera;
 
+extern RenderTexture2D viewport;
+
 extern const int window_Width;
 extern const int window_Hieght;
-extern const int window_x;
-extern const int window_y;
+extern const int viewport_Width;
+extern const int viewport_Hieght;
 extern const int target_fps;
 
 extern int currentFrame;
 extern int framesCounter;
 extern int framesSpeed;
+
+extern bool col;
+extern bool ismoving;
 
 extern int currentFrameE;
 extern int framesCounterE;

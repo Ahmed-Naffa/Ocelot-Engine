@@ -13,11 +13,11 @@ bool ismoving = false;
 
 void Init_Player() {
     Hero.player_Speed = 0;            
-    Hero.player_Walk_Speed = 500;
-    Hero.player_Max_Speed = 700;
+    Hero.player_Walk_Speed = 250;
+    Hero.player_Max_Speed = 300;
     Hero.player_Min_Speed = 0;
-    Hero.player_Acceleration = 1200;
-    Hero.player_Deceleration = 1500;
+    Hero.player_Acceleration = 400;
+    Hero.player_Deceleration = 750;
 }
 
 void Move_Player() {
@@ -53,13 +53,9 @@ void Move_Player() {
         }
     }
 
-    // 3. Apply movement along the active/last direction
     Hero.playertext.pos.x += move_Dir.x*Hero.player_Speed*delta;
     Hero.playertext.pos.y += move_Dir.y*Hero.player_Speed*delta;
 
-	if (IsKeyPressed(KEY_EIGHT)) {
-		Unload_Player();
-	}
 	col = CheckCollisionRecs(HBounds, EBounds);
 	if (col) {
 

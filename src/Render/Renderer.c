@@ -10,6 +10,9 @@ my_Camera camera;
 Rectangle HBounds;
 Rectangle EBounds;
 
+const int viewport_Width = 320;
+const int viewport_Hieght = 180;
+RenderTexture2D viewport;
 
 void Load_Fonts(my_Font* struc, const char* path, const char* msg, Vector2 pos, float size, float spacing, Color tint) {
 
@@ -45,22 +48,19 @@ void Init_Color_Values() {
 
 void Init_Render() {
 
-    Load_Texture(&art_Clouds, art_Clouds.text, "resources/Textures/Clouds.png", (Vector2)VZERO, (Rectangle) { 0, 0, 1920, 1080 }, WHITE);
+    Load_Texture(&art_Clouds, art_Clouds.text, "resources/Textures/Clouds.png", (Vector2)VZERO, (Rectangle) { 0, 0, 320, 180 }, WHITE);
     SetTextureFilter(art_Clouds.text, TEXTURE_FILTER_POINT);
 
-    Load_Texture(&Hero.playertext, Hero.playertext.text, "resources/Textures/Player.png", (Vector2) { 100, 200 }, (Rectangle) { 0, 0, 128, 128 }, WHITE);
-    Hero.playertext.text.width *= 4;
-    Hero.playertext.text.height *= 4;
+    Load_Texture(&Hero.playertext, Hero.playertext.text, "resources/Textures/Player.png", (Vector2) { 10, 40 }, (Rectangle) { 0, 0, 32, 32 }, WHITE);
     HBounds = (Rectangle){Hero.playertext.pos.x, Hero.playertext.pos.y, Hero.playertext.text.width/6, Hero.playertext.text.height};
     SetTextureFilter(Hero.playertext.text, TEXTURE_FILTER_POINT);
     
-    Load_Texture(&Man.enemytext, Man.enemytext.text, "resources/Textures/Enemy.png", (Vector2) { 500, 500 }, (Rectangle) { 0, 0, 128, 128 }, WHITE);
-    Man.enemytext.text.width *= 4;
-    Man.enemytext.text.height *= 4;
+    Load_Texture(&Man.enemytext, Man.enemytext.text, "resources/Textures/Enemy.png", (Vector2) { 70, 50 }, (Rectangle) { 0, 0, 32, 32 }, WHITE);
     EBounds = (Rectangle){Man.enemytext.pos.x, Man.enemytext.pos.y, Man.enemytext.text.width/6, Man.enemytext.text.height};
     SetTextureFilter(Man.enemytext.text, TEXTURE_FILTER_POINT);
 
-    Load_Fonts(&fontTTF, "resources/Fonts/propaganda.ttf", "Using Ocelot-Engine\nGame Engine By Ahmed Naffa", (Vector2) { 50, 20 }, 62, 2, GOLD);
+    Load_Fonts(&fontTTF, "resources/Fonts/propaganda.ttf", "Using Ocelot-Engine\nGame Engine By Ahmed Naffa", (Vector2) { 5, 0 }, 15, 2, GOLD);
+    SetTextureFilter(fontTTF.font.texture, TEXTURE_FILTER_POINT);
 
     Init_Color_Values();
     camera.cam.target = (Vector2)VZERO;
@@ -71,25 +71,39 @@ void Init_Render() {
 }
 
 void Draw() {
-    BeginDrawing();
+    BeginTextureMode(viewport);
     ClearBackground(space_Color);
 
     BeginMode2D(camera.cam);
     DrawTextureRec(art_Clouds.text, art_Clouds.rect, art_Clouds.pos, art_Clouds.color);
 
     DrawTextureRec(Hero.playertext.text, Hero.playertext.rect, Hero.playertext.pos, Hero.playertext.color);
-     HBounds = (Rectangle){Hero.playertext.pos.x,Hero.playertext.pos.y,Hero.playertext.rect.width - 22,Hero.playertext.rect.height}; //DEBUG TO SHOW Player COLLISON BOUNDS
-    DrawRectangleLinesEx(HBounds, 2, BLACK);//DEBUG TO SHOW Player COLLISON BOUNDS
+     HBounds = (Rectangle){Hero.playertext.pos.x,Hero.playertext.pos.y,Hero.playertext.rect.width,Hero.playertext.rect.height}; //DEBUG TO SHOW Player COLLISON BOUNDS
+    DrawRectangleLinesEx(HBounds, 1, space_Color);//DEBUG TO SHOW Player COLLISON BOUNDS
 
     DrawTextureRec(Man.enemytext.text, Man.enemytext.rect, Man.enemytext.pos, Man.enemytext.color);
-     EBounds = (Rectangle){Man.enemytext.pos.x,Man.enemytext.pos.y,Man.enemytext.rect.width -22,Man.enemytext.rect.height};//DEBUG TO SHOW Enemy COLLISON BOUNDS
-    DrawRectangleLinesEx(EBounds, 2, BLACK);//DEBUG TO SHOW Enemy COLLISON BOUNDS
+     EBounds = (Rectangle){Man.enemytext.pos.x,Man.enemytext.pos.y,Man.enemytext.rect.width,Man.enemytext.rect.height};//DEBUG TO SHOW Enemy COLLISON BOUNDS
+    DrawRectangleLinesEx(EBounds, 1, space_Color);//DEBUG TO SHOW Enemy COLLISON BOUNDS
 
     DrawTextEx(fontTTF.font, fontTTF.msg, fontTTF.pos, fontTTF.size, fontTTF.spacing, fontTTF.tint);
-    DrawRectangle(0, 0, 90, 25, BLACK);
-    DrawFPS(2, 2);
+    
 
     EndMode2D();
+    EndTextureMode();
+
+    float scaleX = (float)GetScreenWidth()/viewport_Width;
+    float scaleY = (float)GetScreenHeight()/viewport_Hieght;
+    float scale = (scaleX<scaleY) ? scaleX : scaleY;
+
+    Rectangle source = {0.0f, 0.0f, (float)viewport.texture.width, -(float)viewport.texture.height};
+    Rectangle dest = {(GetScreenWidth()-(viewport_Width*scale))*0.5f, (GetScreenHeight()-(viewport_Hieght*scale))*0.5f, viewport_Width*scale, viewport_Hieght*scale};
+
+    BeginDrawing();
+    ClearBackground(space_Color);
+    DrawTexturePro(viewport.texture, source, dest, (Vector2){ 0, 0 }, 0.0f, WHITE);
+
+    DrawRectangle(0, 0, 90, 25, space_Color);
+    DrawFPS(2, 2);
     EndDrawing();
 }
 

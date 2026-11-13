@@ -30,6 +30,7 @@ void GAME() {
 
 		//draw
 		Draw();
+
 	}
 	Unload_Sound();
 }

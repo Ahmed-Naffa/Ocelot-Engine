@@ -13,9 +13,6 @@ void Init_Enemy() {
 
 void Move_Enemy() {
 
-	if (IsKeyPressed(KEY_NINE)) {
-		Unload_Enemy();
-	}
 }
 
 void Enemy_Animate()
