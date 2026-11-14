@@ -30,7 +30,7 @@ void Load_Fonts(my_Font* struc, const char* path, const char* msg, Vector2 pos, 
     }
 }
 
-void Load_Texture(my_Texture* struc, Texture2D text, const char* path, Vector2 pos, Rectangle rect, Color color) {
+void Load_Texture(my_Texture* struc, const char* path, Vector2 pos, Rectangle rect, Color color) {
 
     struc->text = LoadTexture(path);
     struc->pos = pos;
@@ -48,13 +48,13 @@ void Init_Color_Values() {
 
 void Init_Render() {
 
-    Load_Texture(&art_Clouds, art_Clouds.text, "resources/Textures/Clouds.png", (Vector2)VZERO, (Rectangle) { 0, 0, 320, 180 }, WHITE);
+    Load_Texture(&art_Clouds, "resources/Textures/Clouds.png", (Vector2)VZERO, (Rectangle) { 0, 0, 320, 180 }, WHITE);
     SetTextureFilter(art_Clouds.text, TEXTURE_FILTER_POINT);
 
-    Load_Texture(&Hero.playertext, Hero.playertext.text, "resources/Textures/Player.png", (Vector2) { 10, 40 }, (Rectangle) { 0, 0, 32, 32 }, WHITE);
+    Load_Texture(&Hero.playertext, "resources/Textures/Player.png", (Vector2) { 10, 40 }, (Rectangle) { 0, 0, 32, 32 }, WHITE);
     SetTextureFilter(Hero.playertext.text, TEXTURE_FILTER_POINT);
     
-    Load_Texture(&Man.enemytext, Man.enemytext.text, "resources/Textures/Enemy.png", (Vector2) { 70, 50 }, (Rectangle) { 0, 0, 32, 32 }, WHITE);
+    Load_Texture(&Man.enemytext, "resources/Textures/Enemy.png", (Vector2) { 70, 50 }, (Rectangle) { 0, 0, 32, 32 }, WHITE);
     SetTextureFilter(Man.enemytext.text, TEXTURE_FILTER_POINT);
 
     Load_Fonts(&fontTTF, "resources/Fonts/propaganda.ttf", "Using Ocelot-Engine\nGame Engine By Ahmed Naffa", (Vector2) { 5, 0 }, 15, 2, GOLD);

@@ -1,8 +1,13 @@
 #pragma once
 #include <Core/Types.h>
 
-void Load_Sound(my_Sound* struc, Sound sound, char* path, float volume, float pitch);
-void Load_Music(my_Music* struc, Music music, char* path, float volume, float pitch);
-void Init_Sound(void);
-void Play_Sound(void);
-void Unload_Sound(void);
+void Init_Sound(my_Sound* sound,const char* path, float volume, float pitch);
+void Play_Sound();
+void Unload_Sound(my_Sound* sound);
+
+void Init_Music(my_Music* music, const char* path, float volume, float pitch);
+void Play_Music(my_Music* music);
+void Unload_Music(my_Music* music);
+
+void Load_Audio();
+void UnLoad_Audio();

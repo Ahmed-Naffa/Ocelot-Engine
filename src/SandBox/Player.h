@@ -1,6 +1,7 @@
 #pragma once
+#include <Core/Types.h>
 
-void Init_Player();
-void Move_Player();
-void Player_Animate();
-void Unload_Player();
+void Init_Player(my_Player* player);
+void Move_Player(my_Player* player, float delta);
+void Player_Animate(my_Player* player);
+void Unload_Player(my_Player* player);

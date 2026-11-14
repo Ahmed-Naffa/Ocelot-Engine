@@ -1,3 +1,4 @@
+#include <raylib.h>
 #include "Game.h"
 #include "Window.h"
 #include "Types.h"
@@ -12,26 +13,27 @@ void GAME() {
 
 	Init_Window();
 	Init_Render();
-	Init_Player();
-	Init_Enemy();
+	Init_Player(&Hero);
+	Init_Enemy(&Man);
 	InitAudioDevice();
-	Init_Sound();
+	Load_Audio();
 
 	while (!WindowShouldClose())
 	{
 		//update
 		delta = GetFrameTime();
 		Window_Change_Fullscreen();
-		Player_Animate();
-		Move_Player();
+		Player_Animate(&Hero);
+		Move_Player(&Hero, delta);
 		Play_Sound();
-		Move_Enemy();
-		Enemy_Animate();
+		Play_Music(&maiden_Voyage);
+		Move_Enemy(&Man);
+		Enemy_Animate(&Man);
 
 		//draw
 		Draw();
 
 	}
-	Unload_Sound();
+	UnLoad_Audio();
 	CloseWindow();
 }

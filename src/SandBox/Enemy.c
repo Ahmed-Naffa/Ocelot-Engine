@@ -7,15 +7,15 @@ my_Enemy Man;
  int framesCounterE = 0;
  int framesSpeedE = 8;
 
-void Init_Enemy() {
-	Man.enemy_Speed = 500;
+void Init_Enemy(my_Enemy* enemy) {
+	enemy->enemy_Speed = 500;
 }
 
-void Move_Enemy() {
+void Move_Enemy(my_Enemy* enemy) {
 
 }
 
-void Enemy_Animate()
+void Enemy_Animate(my_Enemy* enemy)
 {
 	framesCounterE++;
 
@@ -27,11 +27,11 @@ void Enemy_Animate()
 
 		if (currentFrameE >= 6) currentFrameE = 0;
 
-		Man.enemytext.rect.x = currentFrameE * Man.enemytext.rect.width;
+		enemy->enemytext.rect.x = currentFrameE *enemy->enemytext.rect.width;
 	}
 }
 
-void Unload_Enemy() {
+void Unload_Enemy(my_Enemy* enemy) {
 
-	Man = (my_Enemy){0};
+	*enemy = (my_Enemy){0};
 }
