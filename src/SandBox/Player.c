@@ -67,6 +67,7 @@ void Move_Player(my_Player* player, float delta) {
     if ( player->playertext.pos.x>viewport_Width-(player->playertext.text.width/6) ) player->playertext.pos.x = viewport_Width-(player->playertext.text.width/6);
     if ( player->playertext.pos.y < 0 ) player->playertext.pos.y = 0;
     if ( player->playertext.pos.y >viewport_Height-player->playertext.text.height) player->playertext.pos.y = viewport_Height-player->playertext.text.height;
+
 }
 
 void Player_Animate(my_Player* player)
@@ -87,5 +88,7 @@ void Player_Animate(my_Player* player)
 
 void Unload_Player(my_Player* player) {
 
+    UnloadTexture(player->playertext.text);
     *player = (my_Player){0};
 }
+
