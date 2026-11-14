@@ -8,7 +8,7 @@ int currentFrame = 0;
 int framesCounter = 0;
 int framesSpeed = 8;
 
-bool col = false;
+bool isHit = false;
 bool ismoving = false;
 
 void Init_Player() {
@@ -56,11 +56,17 @@ void Move_Player() {
     Hero.playertext.pos.x += move_Dir.x*Hero.player_Speed*delta;
     Hero.playertext.pos.y += move_Dir.y*Hero.player_Speed*delta;
 
-	col = CheckCollisionRecs(HBounds, EBounds);
-	if (col) {
+	isHit = CheckCollisionRecs(HBounds, EBounds);
+	if (isHit) {
 
 		Unload_Player();
 	}
+
+    // stay in screen
+    if ( Hero.playertext.pos.x < 0 ) Hero.playertext.pos.x = 0;
+    if ( Hero.playertext.pos.x>viewport_Width-(Hero.playertext.text.width/6) ) Hero.playertext.pos.x = viewport_Width-(Hero.playertext.text.width/6);
+    if ( Hero.playertext.pos.y < 0 ) Hero.playertext.pos.y = 0;
+    if ( Hero.playertext.pos.y >viewport_Height- Hero.playertext.text.height) Hero.playertext.pos.y = viewport_Height-Hero.playertext.text.height;
 }
 
 void Player_Animate()

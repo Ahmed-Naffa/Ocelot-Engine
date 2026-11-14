@@ -33,4 +33,5 @@ void GAME() {
 
 	}
 	Unload_Sound();
+	CloseWindow();
 }

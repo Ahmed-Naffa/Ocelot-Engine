@@ -11,7 +11,7 @@ Rectangle HBounds;
 Rectangle EBounds;
 
 const int viewport_Width = 320;
-const int viewport_Hieght = 180;
+const int viewport_Height = 180;
 RenderTexture2D viewport;
 
 void Load_Fonts(my_Font* struc, const char* path, const char* msg, Vector2 pos, float size, float spacing, Color tint) {
@@ -52,11 +52,9 @@ void Init_Render() {
     SetTextureFilter(art_Clouds.text, TEXTURE_FILTER_POINT);
 
     Load_Texture(&Hero.playertext, Hero.playertext.text, "resources/Textures/Player.png", (Vector2) { 10, 40 }, (Rectangle) { 0, 0, 32, 32 }, WHITE);
-    HBounds = (Rectangle){Hero.playertext.pos.x, Hero.playertext.pos.y, Hero.playertext.text.width/6, Hero.playertext.text.height};
     SetTextureFilter(Hero.playertext.text, TEXTURE_FILTER_POINT);
     
     Load_Texture(&Man.enemytext, Man.enemytext.text, "resources/Textures/Enemy.png", (Vector2) { 70, 50 }, (Rectangle) { 0, 0, 32, 32 }, WHITE);
-    EBounds = (Rectangle){Man.enemytext.pos.x, Man.enemytext.pos.y, Man.enemytext.text.width/6, Man.enemytext.text.height};
     SetTextureFilter(Man.enemytext.text, TEXTURE_FILTER_POINT);
 
     Load_Fonts(&fontTTF, "resources/Fonts/propaganda.ttf", "Using Ocelot-Engine\nGame Engine By Ahmed Naffa", (Vector2) { 5, 0 }, 15, 2, GOLD);
@@ -87,16 +85,15 @@ void Draw() {
 
     DrawTextEx(fontTTF.font, fontTTF.msg, fontTTF.pos, fontTTF.size, fontTTF.spacing, fontTTF.tint);
     
-
     EndMode2D();
     EndTextureMode();
 
     float scaleX = (float)GetScreenWidth()/viewport_Width;
-    float scaleY = (float)GetScreenHeight()/viewport_Hieght;
+    float scaleY = (float)GetScreenHeight()/viewport_Height;
     float scale = (scaleX<scaleY) ? scaleX : scaleY;
 
     Rectangle source = {0.0f, 0.0f, (float)viewport.texture.width, -(float)viewport.texture.height};
-    Rectangle dest = {(GetScreenWidth()-(viewport_Width*scale))*0.5f, (GetScreenHeight()-(viewport_Hieght*scale))*0.5f, viewport_Width*scale, viewport_Hieght*scale};
+    Rectangle dest = {(GetScreenWidth()-(viewport_Width*scale))*0.5f, (GetScreenHeight()-(viewport_Height*scale))*0.5f, viewport_Width*scale, viewport_Height*scale};
 
     BeginDrawing();
     ClearBackground(space_Color);

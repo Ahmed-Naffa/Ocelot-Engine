@@ -88,16 +88,16 @@ extern my_Camera camera;
 extern RenderTexture2D viewport;
 
 extern const int window_Width;
-extern const int window_Hieght;
+extern const int window_Height;
 extern const int viewport_Width;
-extern const int viewport_Hieght;
+extern const int viewport_Height;
 extern const int target_fps;
 
 extern int currentFrame;
 extern int framesCounter;
 extern int framesSpeed;
 
-extern bool col;
+extern bool isHit;
 extern bool ismoving;
 
 extern int currentFrameE;

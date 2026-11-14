@@ -13,7 +13,5 @@ int main()
 {
 	GAME();
 
-	CloseWindow();
-
 	return EXIT_SUCCESS;
 }
