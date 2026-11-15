@@ -124,12 +124,12 @@ gdi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc11</LanguageStandard_C>
-      <AdditionalIncludeDirectories>C:\GAMEDEV\Engines\RayLib\raylib-6.2_win64_msvc16\include;$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Game Devolopment\Engines\raylib-6.2_win64_msvc16\include;$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\GAMEDEV\Engines\RayLib\raylib-6.2_win64_msvc16\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Game Devolopment\Engines\raylib-6.2_win64_msvc16\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>raylib.lib;
 winmm.lib;
 gdi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
